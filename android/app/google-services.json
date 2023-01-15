@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "649664040721",
+    "project_id": "phone-otp-15-01-2023",
+    "storage_bucket": "phone-otp-15-01-2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649664040721:android:1a65fc6485688af36c86b0",
+        "android_client_info": {
+          "package_name": "com.example.newsapp_with_otp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "649664040721-nur2g24da23hcbveihqg8oah5kc4vgni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI0TUZ9ITelgKRgf4o_Rtl7ys4Dm-RiRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "649664040721-nur2g24da23hcbveihqg8oah5kc4vgni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
