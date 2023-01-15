@@ -20,6 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool showingSplash = true;
   LoadHome() {
+    // ignore: prefer_const_constructors
     Future.delayed(Duration(seconds: 3), () {
       setState(() {
         showingSplash = false;
@@ -40,6 +41,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      // ignore: prefer_const_constructors
       home: showingSplash ? SplashScreen() : MyPhone(),
     );
   }

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 
 import 'dart:developer';
 
@@ -17,7 +17,8 @@ class MyVerify extends StatefulWidget {
 
 class _MyVerifyState extends State<MyVerify> {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  var code = '';
+  TextEditingController otp = TextEditingController();
+  var otp1 = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +47,7 @@ class _MyVerifyState extends State<MyVerify> {
               SizedBox(
                 height: 40,
               ),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Image.asset(
                   'assets/img/img3.jpg',
@@ -75,27 +76,33 @@ class _MyVerifyState extends State<MyVerify> {
               Padding(
                 padding: const EdgeInsets.all(5),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                        height: 53,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                                color: Color.fromARGB(255, 60, 4, 106),
-                                width: 1.5)),
-                        child: TextField(
-                          onChanged: (value) {
-                            code = value;
-                            print(code);
-                          },
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Phone",
+                      height: 53,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                              color: Color.fromARGB(255, 60, 4, 106),
+                              width: 1.5)),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: TextField(
+                            controller: otp,
+                            onChanged: (value) {
+                              otp1 = value;
+                            },
+                            keyboardType: TextInputType.phone,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Enter OTP",
+                            ),
                           ),
-                        )),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -114,11 +121,8 @@ class _MyVerifyState extends State<MyVerify> {
                       try {
                         PhoneAuthCredential credential =
                             PhoneAuthProvider.credential(
-                                verificationId: MyPhone.varify,
-                                smsCode: '720227');
-                        print('the code is=$code');
+                                verificationId: MyPhone.varify, smsCode: otp1);
 
-                        // Sign the user in (or link) with the credential
                         await auth.signInWithCredential(credential);
                         Navigator.push(
                             context,
@@ -148,6 +152,7 @@ class _MyVerifyState extends State<MyVerify> {
               SizedBox(
                 height: 40,
               ),
+              // ignore: sized_box_for_whitespace
               Container(
                 height: 50,
                 width: 250,
@@ -158,39 +163,6 @@ class _MyVerifyState extends State<MyVerify> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class OtpBox extends StatelessWidget {
-  const OtpBox({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    var code = '';
-    return Container(
-      height: 53,
-      width: 53,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border:
-              Border.all(color: Color.fromARGB(255, 60, 4, 106), width: 1.5)),
-      child: TextFormField(
-        onChanged: (value) {
-          if (value.length == 1) {
-            code = value;
-            FocusScope.of(context).nextFocus();
-          }
-        },
-        cursorColor: Colors.grey.shade100,
-        style: Theme.of(context).textTheme.headline6,
-        keyboardType: TextInputType.number,
-        textAlign: TextAlign.center,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(1),
-          FilteringTextInputFormatter.digitsOnly
-        ],
       ),
     );
   }

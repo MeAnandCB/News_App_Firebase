@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:newsapp_with_otp/Screens/varifying.dart';
+import 'package:newsapp_with_otp/Screens/otpVarificationPage.dart';
 import 'package:newsapp_with_otp/view/home.dart';
 
 class MyPhone extends StatefulWidget {

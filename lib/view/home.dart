@@ -76,6 +76,20 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: const Text('Find Your News Here'),
           backgroundColor: const Color.fromARGB(255, 60, 4, 106),
+          actions: const [
+            Icon(
+              Icons.share,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Icon(
+              Icons.favorite_border_sharp,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+          ],
         ),
         body: SafeArea(
           child: PageView.builder(
