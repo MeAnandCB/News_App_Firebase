@@ -1,8 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp_with_otp/view/spalsh.dart';
-
-import 'Screens/LogInPage.dart';
+import 'Introduction_Screen/indroduction_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       // ignore: prefer_const_constructors
-      home: showingSplash ? SplashScreen() : MyPhone(),
+      home: showingSplash ? SplashScreen() : Intro(),
     );
   }
 }
