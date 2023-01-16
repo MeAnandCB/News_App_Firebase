@@ -1,8 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:newsapp_with_otp/view/widget/NewsContainer.dart';
-import '../controller/fetchNews.dart';
-import '../model/newsArt.dart';
+import '../BottomNavigationBar.dart/BottamNavigationBar_Home/HomeNewsPage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,24 +11,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isLoading = true;
-
-  late NewsArt newsArt;
-
-  GetNews() async {
-    newsArt = await FetchNews.fetchNews();
-
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  @override
-  void initState() {
-    GetNews();
-    super.initState();
-  }
-
   Future<bool> showExitPopup() async {
     return await showDialog(
           //show confirm dialogue
@@ -66,78 +47,67 @@ class _HomeScreenState extends State<HomeScreen> {
         ) ??
         false; //if showDialouge had returned null, then return false
   }
+
   //call function on back button press
+  int currentindexValue = 0;
+  static List<Widget> widgetOptions = <Widget>[
+    HomeNewsPage(),
+    Text('Search Page',
+        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+    Text('Profile Page',
+        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => showExitPopup(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Find Your News Here'),
-          backgroundColor: const Color.fromARGB(255, 60, 4, 106),
-          actions: const [
-            Icon(
-              Icons.share,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Icon(
-              Icons.favorite_border_sharp,
-            ),
-            SizedBox(
-              width: 20,
-            ),
-          ],
-        ),
-        body: SafeArea(
-          child: PageView.builder(
-            controller: PageController(initialPage: 0),
-            scrollDirection: Axis.vertical,
-            onPageChanged: (value) {
+    return DefaultTabController(
+      length: 3,
+      child: WillPopScope(
+        onWillPop: () => showExitPopup(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Find Your News Here'),
+            backgroundColor: const Color.fromARGB(255, 60, 4, 106),
+            actions: const [
+              Icon(
+                Icons.share,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Icon(
+                Icons.favorite_border_sharp,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+            ],
+          ),
+          body: widgetOptions.elementAt(currentindexValue),
+          bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor: const Color.fromARGB(255, 60, 4, 106),
+            unselectedItemColor: Colors.grey,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_border),
+                label: 'Heart',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Settings',
+              ),
+            ],
+            currentIndex: currentindexValue,
+            onTap: (index) {
               setState(() {
-                isLoading = true;
+                currentindexValue = index;
               });
-              GetNews();
-            },
-            itemBuilder: (context, index) {
-              return isLoading
-                  ? Center(
-                      child: Lottie.network(
-                          'https://assets4.lottiefiles.com/packages/lf20_x62chJ.json'),
-                    )
-                  : NewsContainer(
-                      imgUrl: newsArt.imgUrl,
-                      newsCnt: newsArt.newsCnt,
-                      newsHead: newsArt.newsHead,
-                      newsDes: newsArt.newsDes,
-                      newsUrl: newsArt.newsUrl);
             },
           ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: const Color.fromARGB(255, 60, 4, 106),
-          unselectedItemColor: Colors.grey,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border),
-              label: 'Heart',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
-          currentIndex: 0,
         ),
       ),
     );
