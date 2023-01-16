@@ -19,8 +19,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool showingSplash = true;
   LoadHome() {
-    // ignore: prefer_const_constructors
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       setState(() {
         showingSplash = false;
       });

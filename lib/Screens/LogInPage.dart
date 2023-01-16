@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp_with_otp/Screens/otpVarificationPage.dart';
@@ -23,6 +24,17 @@ class _MyPhoneState extends State<MyPhone> {
     super.initState();
   }
 
+  Country selectcountry = Country(
+      phoneCode: "91",
+      countryCode: "IN",
+      e164Sc: 0,
+      geographic: true,
+      level: 1,
+      name: "India",
+      example: "India",
+      displayName: "India",
+      displayNameNoCountryCode: "IN",
+      e164Key: "");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +70,7 @@ class _MyPhoneState extends State<MyPhone> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: 30,
+                height: 60,
               ),
               Container(
                 height: 55,
@@ -69,17 +81,28 @@ class _MyPhoneState extends State<MyPhone> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: 10,
+                      width: 18,
                     ),
-                    SizedBox(
-                      width: 40,
-                      child: TextField(
-                        controller: countryController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
+                    Container(
+                      child: InkWell(
+                        onTap: () {
+                          showCountryPicker(
+                              context: context,
+                              onSelect: (value) {
+                                setState(() {
+                                  selectcountry = value;
+                                });
+                              });
+                        },
+                        child: Text(
+                          "${selectcountry.flagEmoji} + ${selectcountry.phoneCode}",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      width: 15,
                     ),
                     const Text(
                       "|",

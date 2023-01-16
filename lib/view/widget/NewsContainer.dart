@@ -30,9 +30,15 @@ class NewsContainer extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 15),
-            child: Text('Headlines : ',
+            child: Container(
+              child: Text(
+                'Headlines : ',
                 style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(15),
@@ -40,7 +46,9 @@ class NewsContainer extends StatelessWidget {
               newsHead.length > 90
                   ? "${newsHead.substring(0, 90)}..."
                   : newsHead,
-              style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           Container(
@@ -49,7 +57,7 @@ class NewsContainer extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               Container(
                 clipBehavior: Clip.hardEdge,
@@ -57,22 +65,24 @@ class NewsContainer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15.0),
                 ),
                 child: FadeInImage.assetNetwork(
-                    height: 250,
+                    height: MediaQuery.of(context).size.height * .25,
                     width: MediaQuery.of(context).size.width,
                     fit: BoxFit.cover,
                     placeholder: "assets/img/space.jpg",
                     image: imgUrl),
               ),
               const SizedBox(
-                height: 30,
+                height: 25,
               ),
               Text(
                 newsDes,
                 style: const TextStyle(
                     fontSize: 12, height: 1.5, color: Colors.black38),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               Text(
                 newsCnt != "--"
@@ -82,6 +92,8 @@ class NewsContainer extends StatelessWidget {
                     : newsCnt,
                 style: const TextStyle(
                     fontSize: 17, height: 1.5, fontWeight: FontWeight.w500),
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
               ),
             ]),
           ),
@@ -105,9 +117,6 @@ class NewsContainer extends StatelessWidget {
                   icon: Icon(Icons.newspaper_rounded),
                   label: Text('Read More')),
             ),
-          ),
-          const SizedBox(
-            height: 20,
           ),
         ]),
       ),
