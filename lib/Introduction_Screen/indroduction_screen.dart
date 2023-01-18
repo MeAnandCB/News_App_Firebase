@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../Screens/LogInPage.dart';
+import '../Login_and_Signin/LogInPage.dart';
 
 class Intro extends StatelessWidget {
   Intro({super.key});

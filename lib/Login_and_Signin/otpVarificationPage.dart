@@ -4,9 +4,11 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:newsapp_with_otp/Screens/LogInPage.dart';
-import 'package:newsapp_with_otp/view/home.dart';
+import 'package:newsapp_with_otp/Login_and_Signin/LogInPage.dart';
+import 'package:newsapp_with_otp/Screens/Home_Screen/home.dart';
 import 'package:flutter/services.dart';
+
+import '../BottomNavigationBar.dart/Bottomnavscreen.dart';
 
 class MyVerify extends StatefulWidget {
   const MyVerify({Key? key}) : super(key: key);
@@ -127,7 +129,7 @@ class _MyVerifyState extends State<MyVerify> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
+                                builder: (context) => HomePage()));
                       } catch (e) {
                         print('wrong otp');
                       }

@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:newsapp_with_otp/view/spalsh.dart';
+import 'package:newsapp_with_otp/splash_Screen/spalsh.dart';
 import 'Introduction_Screen/indroduction_screen.dart';
 
 void main() async {

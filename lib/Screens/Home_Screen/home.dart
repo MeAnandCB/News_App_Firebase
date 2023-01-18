@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import '../BottomNavigationBar.dart/BottamNavigationBar_Home/HomeNewsPage.dart';
+import 'package:lottie/lottie.dart';
+import 'package:newsapp_with_otp/widget/NewsContainer.dart';
+import '../../BottomNavigationBar.dart/HomeNewsPage.dart';
+import '../../controller/fetchNews.dart';
+import '../../model/newsArt.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -57,6 +61,23 @@ class _HomeScreenState extends State<HomeScreen> {
     Text('Profile Page',
         style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
   ];
+  bool isLoading = true;
+
+  late NewsArt newsArt;
+
+  GetNews() async {
+    newsArt = await FetchNews.fetchNews();
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    GetNews();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,31 +104,30 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          body: widgetOptions.elementAt(currentindexValue),
-          bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: const Color.fromARGB(255, 60, 4, 106),
-            unselectedItemColor: Colors.grey,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border),
-                label: 'Heart',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Settings',
-              ),
-            ],
-            currentIndex: currentindexValue,
-            onTap: (index) {
+          body: PageView.builder(
+            controller: PageController(initialPage: 0),
+            scrollDirection: Axis.vertical,
+            onPageChanged: (value) {
               setState(() {
-                currentindexValue = index;
+                isLoading = true;
               });
+              GetNews();
+            },
+            itemBuilder: (context, index) {
+              return isLoading
+                  ? Center(
+                      child: Lottie.network(
+                          'https://assets4.lottiefiles.com/packages/lf20_x62chJ.json'),
+                    )
+                  : NewsContainer(
+                      imgUrl: newsArt.imgUrl,
+                      newsCnt: newsArt.newsCnt,
+                      newsHead: newsArt.newsHead,
+                      newsDes: newsArt.newsDes,
+                      newsUrl: newsArt.newsUrl);
             },
           ),
+          // body: widgetOptions.elementAt(currentindexValue),
         ),
       ),
     );
