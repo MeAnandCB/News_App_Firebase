@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../Screens/Home_Screen/home.dart';
-import 'HomeNewsPage.dart';
+import '../../View/Profile_Page/Profile.dart';
+import '../../View/Favorite_Collections/favorate_selection_page.dart';
+import 'home.dart';
+import '../../View/Screens/Home_Screen/HomeNewsPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,8 +17,8 @@ class _HomePageState extends State<HomePage> {
 
   final pages = [
     HomeScreen(),
-    Page2(),
-    Page3(),
+    Favorite_Page(),
+    ProfilePage(),
   ];
 
   @override
@@ -93,25 +95,6 @@ class _HomePageState extends State<HomePage> {
                       size: 25,
                     ),
             ),
-            // IconButton(
-            //   enableFeedback: false,
-            //   onPressed: () {
-            //     setState(() {
-            //       pageIndex = 3;
-            //     });
-            //   },
-            //   icon: pageIndex == 3
-            //       ? const Icon(
-            //           Icons.person,
-            //           color: Colors.white,
-            //           size: 35,
-            //         )
-            //       : const Icon(
-            //           Icons.person_outline,
-            //           color: Colors.white,
-            //           size: 35,
-            //         ),
-            // ),
           ],
         ),
       ),

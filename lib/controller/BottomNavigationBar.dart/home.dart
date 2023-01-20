@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:newsapp_with_otp/widget/NewsContainer.dart';
-import '../../BottomNavigationBar.dart/HomeNewsPage.dart';
-import '../../controller/fetchNews.dart';
+import '../../View/Screens/Home_Screen/HomeNewsPage.dart';
+import '../fetchNews.dart';
 import '../../model/newsArt.dart';
 
 class HomeScreen extends StatefulWidget {

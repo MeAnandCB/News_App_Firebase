@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-import '../webView_Page/Web_View_Page.dart';
+import '../View/webView_Page/Web_View_Page.dart';
 
 class NewsContainer extends StatelessWidget {
   String imgUrl;

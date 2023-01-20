@@ -3,8 +3,8 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:newsapp_with_otp/Login_and_Signin/otpVarificationPage.dart';
-import 'package:newsapp_with_otp/Screens/Home_Screen/home.dart';
+import 'package:newsapp_with_otp/View/Login_and_Signin/otpVarificationPage.dart';
+import 'package:newsapp_with_otp/controller/BottomNavigationBar.dart/home.dart';
 
 class MyPhone extends StatefulWidget {
   const MyPhone({Key? key}) : super(key: key);
