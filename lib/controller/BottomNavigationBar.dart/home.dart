@@ -54,13 +54,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //call function on back button press
   int currentindexValue = 0;
-  static List<Widget> widgetOptions = <Widget>[
-    HomeNewsPage(),
-    Text('Search Page',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Profile Page',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-  ];
+  // static List<Widget> widgetOptions = <Widget>[
+  //   HomeNewsPage(),
+  //   Text('Search Page',
+  //       style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+  //   Text('Profile Page',
+  //       style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+  // ];
   bool isLoading = true;
 
   late NewsArt newsArt;

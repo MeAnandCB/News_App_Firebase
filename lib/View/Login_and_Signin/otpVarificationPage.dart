@@ -91,15 +91,17 @@ class _MyVerifyState extends State<MyVerify> {
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.all(10),
-                          child: TextField(
-                            controller: otp,
-                            onChanged: (value) {
-                              otp1 = value;
-                            },
-                            keyboardType: TextInputType.phone,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Enter OTP",
+                          child: Center(
+                            child: TextField(
+                              controller: otp,
+                              onChanged: (value) {
+                                otp1 = value;
+                              },
+                              keyboardType: TextInputType.phone,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Enter OTP",
+                              ),
                             ),
                           ),
                         ),
