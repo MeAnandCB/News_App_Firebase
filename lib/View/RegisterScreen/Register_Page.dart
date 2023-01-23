@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -9,6 +12,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  String selectedImagePath = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,14 +25,38 @@ class _RegisterPageState extends State<RegisterPage> {
           SizedBox(
             height: 70,
           ),
-          CircleAvatar(
-            radius: 98,
-            backgroundColor: Color.fromARGB(255, 116, 35, 183),
-            child: CircleAvatar(
-              backgroundColor: Color(0xff5199e5),
-              backgroundImage: AssetImage('assets/img/avatar.png'),
-              radius: 95,
-            ),
+          GestureDetector(
+            onTap: () async {
+              selectedImagePath = await selectImageFromGallery();
+
+              if (selectedImagePath != '') {
+                setState(() {});
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("No Image Captured !"),
+                ));
+              }
+            },
+            child: selectedImagePath == ''
+                ? CircleAvatar(
+                    radius: 90,
+                    child: Image.asset(
+                      'assets/img/avatar.png',
+                    ),
+                  )
+                : CircleAvatar(
+                    radius: 90,
+                    // backgroundImage: FileImage(
+                    //   File(selectedImagePath),
+                    // ),
+                    child: ClipOval(
+                        child: Image.file(
+                      File(selectedImagePath),
+                      fit: BoxFit.cover,
+                      width: 170,
+                      height: 170,
+                    )),
+                  ),
           ),
           SizedBox(
             height: 20,
@@ -128,5 +156,116 @@ class _RegisterPageState extends State<RegisterPage> {
         ],
       ),
     );
+  }
+
+  Future selectImage() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)), //this right here
+            child: SizedBox(
+              height: 150,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    Text(
+                      'Select Image From !',
+                      style: TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.bold),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () async {
+                            selectedImagePath = await selectImageFromGallery();
+
+                            if (selectedImagePath != '') {
+                              Navigator.pop(context);
+                              setState(() {});
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text("No Image Selected !"),
+                              ));
+                            }
+                          },
+                          child: Card(
+                              elevation: 5,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'assets/gallery.png',
+                                      height: 60,
+                                      width: 60,
+                                    ),
+                                    Text('Gallery'),
+                                  ],
+                                ),
+                              )),
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            selectedImagePath = await selectImageFromCamera();
+
+                            if (selectedImagePath != '') {
+                              Navigator.pop(context);
+                              setState(() {});
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text("No Image Captured !"),
+                              ));
+                            }
+                          },
+                          child: Card(
+                              elevation: 5,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'assets/camera.png',
+                                      height: 60,
+                                      width: 60,
+                                    ),
+                                    Text('Camera'),
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  selectImageFromGallery() async {
+    XFile? file = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 10);
+    if (file != null) {
+      return file.path;
+    } else {
+      return '';
+    }
+  }
+
+  selectImageFromCamera() async {
+    XFile? file = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 10);
+    if (file != null) {
+      return file.path;
+    } else {
+      return '';
+    }
   }
 }
